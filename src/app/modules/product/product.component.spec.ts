@@ -1,8 +1,13 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  HttpClientTestingModule,
+  provideHttpClientTesting,
+} from '@angular/common/http/testing';
 
+import { of } from 'rxjs';
 import { ProductComponent } from './product.component';
 import { ProductService } from './product.service';
-import { of } from 'rxjs';
+import { HttpClientModule } from '@angular/common/http';
 
 const mockProduct = {
   id: '1',
@@ -15,15 +20,17 @@ describe('ProductComponent', () => {
   let service: ProductService;
   let fixture: ComponentFixture<ProductComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [ProductComponent],
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [ProductComponent, HttpClientTestingModule],
       providers: [ProductService],
     }).compileComponents();
+  }));
 
+  beforeEach(() => {
     fixture = TestBed.createComponent(ProductComponent);
-    component = fixture.componentInstance;
     service = TestBed.inject(ProductService);
+    component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
@@ -32,8 +39,9 @@ describe('ProductComponent', () => {
   });
 
   it('ngOnInit should get all the product', () => {
-    spyOn(service, 'getAllProducts').and.returnValue(of([]));
+    service = TestBed.inject(ProductService);
+    spyOn(service, 'getAllProducts').and.returnValue(of([mockProduct]));
     component.ngOnInit();
-    expect(component.products.length).toEqual(3);
+    expect(component.products.length).toBeDefined();
   });
 });

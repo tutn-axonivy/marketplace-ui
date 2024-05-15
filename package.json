@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test --code-coverage",
-    "serve:ssr:marketplace-ui": "node dist/marketplace-ui/server/server.mjs"
+    "serve:ssr": "node dist/marketplace-ui/server/server.mjs"
   },
   "private": true,
   "dependencies": {
@@ -45,6 +45,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "karma-jsdom-launcher": "^17.0.0",
+    "karma-junit-reporter": "^2.0.1",
     "karma-webpack": "^5.0.1",
     "typescript": "~5.4.2"
   }

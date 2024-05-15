@@ -13,6 +13,7 @@ module.exports = function (config) {
       require('karma-jasmine-html-reporter'),
       require('karma-coverage'),
       require('@angular-devkit/build-angular/plugins/karma'),
+      require('karma-junit-reporter')
     ],
     client: {
       jasmine: {
@@ -37,7 +38,12 @@ module.exports = function (config) {
     angularCli: {
       environment: 'dev'
     },
-    reporters: ['progress', 'kjhtml'],
+    reporters: ['progress', 'junit'],
+    junitReporter: {
+      outputDir: require('path').join(__dirname, './coverage/marketplace-ui'),
+      outputFile: 'junit.xml',
+      useBrowserName: false
+    },
     browsers: ['ChromeHeadless'],
     restartOnFileChange: true
   });

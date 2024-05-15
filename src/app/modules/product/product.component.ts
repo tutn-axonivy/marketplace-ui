@@ -22,6 +22,7 @@ export class ProductComponent implements OnInit, OnDestroy {
     const sub = this.productService.getAllProducts().subscribe((products) => {
       this.products = products;
     });
+    console.log(this.products)
     this.subscription.push(sub);
   }
 
