@@ -40,7 +40,7 @@ module.exports = function (config) {
     },
     reporters: ['progress', 'junit'],
     junitReporter: {
-      outputDir: require('path').join(__dirname, './coverage/marketplace-ui'),
+      outputDir: 'test-result',
       outputFile: 'junit.xml',
       useBrowserName: false
     },

@@ -30,7 +30,7 @@ jobs:
         if: always()
         with:
           files: |
-            **/coverage/marketplace-ui/junit.xml
+            test-result/*.xml
 
       - name: Clean up
         run: |
