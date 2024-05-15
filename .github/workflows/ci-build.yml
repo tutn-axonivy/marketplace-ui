@@ -26,12 +26,9 @@ jobs:
           npm run test
 
       - name: Publish Test Results
-        uses: dorny/test-reporter@v1
-        if: success() || failure()    # run this step even if previous step failed
+        uses: pavi2410/html-preview-action@v2
         with:
-          name: Karma Tests
-          path: reports/karma-*.xml
-          reporter: jest-junit
+          html_file: 'coverage/marketplace-ui/index.html'
 
       - name: Clean up
         run: |
