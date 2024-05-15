@@ -1,0 +1,14 @@
+<div class="header">
+  <div class="header__logo"></div>
+  <div class="header__nav"></div>
+  <div class="header__search-button"></div>
+  <div class="header__theme-button">
+    <button (click)="toggleThemeMode()">
+    @if (isDarkMode) {
+        🌙
+      } @else {
+        🔆
+      }
+    </button>
+  </div>
+</div>

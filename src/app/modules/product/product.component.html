@@ -1,0 +1,11 @@
+<div class="bg-primary">
+  <ul>
+    @for (product of products; track $index) {
+    <li>
+      <p class="text-primary">{{ product.id }}</p>
+      <p class="text-primary">{{ product.name }}</p>
+      <p class="text-primary">{{ product.description }}</p>
+    </li>
+    }
+  </ul>
+</div>
