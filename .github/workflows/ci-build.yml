@@ -30,7 +30,7 @@ jobs:
         if: always()
         with:
           files: |
-            test-result/*.xml
+            **/junit.xml
 
       - name: Clean up
         run: |
