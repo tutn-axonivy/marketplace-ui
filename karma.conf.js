@@ -40,8 +40,8 @@ module.exports = function (config) {
     },
     reporters: ['progress', 'junit'],
     junitReporter: {
-      outputDir: 'test-result',
-      outputFile: 'junit.xml',
+      outputDir: 'reports',
+      outputFile: 'karma-junit.xml',
       useBrowserName: false
     },
     browsers: ['ChromeHeadless'],

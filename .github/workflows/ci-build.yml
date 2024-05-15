@@ -26,11 +26,12 @@ jobs:
           npm run test
 
       - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v2
-        if: always()
+        uses: dorny/test-reporter@v1
+        if: success() || failure()    # run this step even if previous step failed
         with:
-          files: |
-            coverage/marketplace-ui/index.html
+          name: Karma Tests            # Name of the check run which will be created
+          path: reports/karma-*.xml    # Path to test results
+          reporter: karma-junit        # Format of test results
 
       - name: Clean up
         run: |
