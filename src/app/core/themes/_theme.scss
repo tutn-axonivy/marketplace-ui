@@ -1,33 +1,4 @@
-$bgColor_light: white;
-$bgColor_dark: black;
-
-$textColor_light: black;
-$textColor_dark: white;
-
-$borderColor_light: black;
-$borderColor_dark: white;
-
-// mixin that enables css variables in light mode
-@mixin lighten() {
-  --bgColor: #{$bgColor_light};
-  --textColor: #{$textColor_light};
-  --borderColor: #{$borderColor_light};
-}
-
-// mixin that enables css variables in dark mode
-@mixin darken() {
-  --bgColor: #{$bgColor_dark};
-  --textColor: #{$textColor_dark};
-  --borderColor: #{$borderColor_dark};
-}
-
-[data-theme="light"] {
-  @include darken();
-}
-
-[data-theme="dark"] {
-  @include lighten();
-}
+@import url(./_variables.scss);
 
 .bg-primary {
   background-color: var(--bgColor);
@@ -36,5 +7,3 @@ $borderColor_dark: white;
 .text-primary {
   color: var(--textColor);
 }
-
-
