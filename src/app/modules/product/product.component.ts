@@ -3,11 +3,13 @@ import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { Product } from '../../shared/models/product.model';
 import { ProductService } from './product.service';
 import { Subscription } from 'rxjs';
+import { ProductCardComponent } from './product-card/product-card.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ProductCardComponent],
   providers: [ProductService],
   templateUrl: './product.component.html',
   styleUrl: './product.component.scss',
@@ -18,12 +20,17 @@ export class ProductComponent implements OnInit, OnDestroy {
   subscription: Subscription[] = [];
   productService = inject(ProductService);
 
+  constructor(private readonly router: Router) {}
+
   ngOnInit(): void {
     const sub = this.productService.getAllProducts().subscribe((products) => {
       this.products = products;
     });
-    console.log(this.products)
     this.subscription.push(sub);
+  }
+
+  viewProductDetail(productId: string) {
+    this.router.navigate(['', productId]);
   }
 
   ngOnDestroy(): void {

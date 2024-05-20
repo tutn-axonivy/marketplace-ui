@@ -1,11 +1,9 @@
 <div class="bg-primary">
-  <ul>
+  <div class="grid-container">
     @for (product of products; track $index) {
-    <li>
-      <p class="text-primary">{{ product.id }}</p>
-      <p class="text-primary">{{ product.name }}</p>
-      <p class="text-primary">{{ product.description }}</p>
-    </li>
+    <div (click)="viewProductDetail(product.id)">
+      <app-product-card [product]="product"></app-product-card>
+    </div>
     }
-  </ul>
+  </div>
 </div>

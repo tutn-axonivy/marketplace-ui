@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 import bootstrap from './src/main.server';
 import fs from 'fs';
-
+import cors from 'cors';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -16,15 +16,19 @@ export function app(): express.Express {
 
   const commonEngine = new CommonEngine();
 
+  server.use(cors());
   server.set('view engine', 'html');
   server.set('views', browserDistFolder);
 
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });
   // Serve static files from /browser
-  server.get('*.*', express.static(browserDistFolder, {
-    maxAge: '1y'
-  }));
+  server.get(
+    '*.*',
+    express.static(browserDistFolder, {
+      maxAge: '1y',
+    })
+  );
 
   // All regular routes use the Angular engine
   // server.get('*', (req, res, next) => {
@@ -42,18 +46,22 @@ export function app(): express.Express {
   //     .catch((err) => next(err));
   // });
 
+  const data = fs.readFileSync('mock-data.json', 'utf8');
+  const jsonData: any[] = JSON.parse(data);
+
   server.get('/api/products', (req, res) => {
-    const data = fs.readFileSync('mock-data.json', 'utf8');
-    const jsonData = JSON.parse(data);
-  
     res.send(jsonData);
-  })
+  });
+
+  server.get('/api/products/:id', (req, res) => {
+    res.send(jsonData.find((product) => product.id === req.params['id']));
+  });
 
   return server;
 }
 
 function run(): void {
-  const port = process.env['PORT'] || 8081;
+  const port = process.env['PORT'] || 8082;
 
   // Start up the Node server
   const server = app();
