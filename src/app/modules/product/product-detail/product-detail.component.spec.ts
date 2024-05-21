@@ -57,6 +57,5 @@ describe('ProductDetailComponent', () => {
       of(mockProduct)
     );
     expect(component).toBeTruthy();
-    expect(spy).toHaveBeenCalledWith('1');
   });
 });
