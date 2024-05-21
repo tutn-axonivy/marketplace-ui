@@ -103,11 +103,11 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles-test.scss"
             ],
             "scripts": [],
             "karmaConfig": "karma.conf.js",
-            "sourceMap": true,
+            "sourceMap": false,
             "watch": false
           }
         }
