@@ -2,7 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Component, Inject, Input } from '@angular/core';
 import { Theme } from '../../enums/theme.enum';
 
-const DATA_THEME = 'data-theme';
+const DATA_THEME = 'data-bs-theme';
 
 @Component({
   selector: 'app-header',
@@ -39,7 +39,7 @@ export class HeaderComponent {
   }
 
   setTheme(theme: Theme) {
-    document.body.setAttribute(DATA_THEME, theme);
+    document.querySelector('html')!.setAttribute(DATA_THEME, theme);
     if (theme === Theme.DARK) {
       this.isDarkMode = true;
     } else {

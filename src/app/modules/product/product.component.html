@@ -1,9 +1,7 @@
-<div class="bg-primary">
-  <div class="grid-container">
-    @for (product of products; track $index) {
-    <div (click)="viewProductDetail(product.id)">
-      <app-product-card [product]="product"></app-product-card>
-    </div>
-    }
+<div class="grid-container">
+  @for (product of products; track $index) {
+  <div (click)="viewProductDetail(product.id)">
+    <app-product-card [product]="product"></app-product-card>
   </div>
+  }
 </div>
