@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../product.service';
 import { Product } from '../../../shared/models/product.model';
@@ -12,7 +12,11 @@ import { Product } from '../../../shared/models/product.model';
   styleUrl: './product-detail.component.scss',
 })
 export class ProductDetailComponent {
-  product!: Product;
+  product: Product = {
+    id: '',
+    name: '',
+    description: '',
+  };
   constructor(
     private readonly route: ActivatedRoute,
     private readonly productService: ProductService
