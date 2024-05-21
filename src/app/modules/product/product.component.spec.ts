@@ -1,21 +1,17 @@
 import {
-  HttpClientTestingModule,
-  provideHttpClientTesting,
+  provideHttpClientTesting
 } from '@angular/common/http/testing';
 import {
   ComponentFixture,
   TestBed,
-  fakeAsync,
-  tick,
-  waitForAsync,
+  fakeAsync
 } from '@angular/core/testing';
 
-import { Observable, Subscription, of } from 'rxjs';
+import { provideHttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { Subscription, of } from 'rxjs';
 import { ProductComponent } from './product.component';
 import { ProductService } from './product.service';
-import { HttpClient, provideHttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { Product } from '../../shared/models/product.model';
 
 const mockProduct = {
   id: 'adobe-acrobat-connector',
@@ -33,10 +29,6 @@ describe('ProductComponent', () => {
   let fixture: ComponentFixture<ProductComponent>;
 
   beforeEach(async () => {
-    const productServiceStub = {
-      getAllProducts: of([mockProduct]),
-    };
-    console.log(productServiceStub);
     await TestBed.configureTestingModule({
       imports: [ProductComponent],
       providers: [

@@ -5,18 +5,16 @@ import {
   tick,
 } from '@angular/core/testing';
 
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  provideHttpClientTesting,
+} from '@angular/common/http/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { Product } from '../../../shared/models/product.model';
 import { ProductService } from '../product.service';
 import { ProductDetailComponent } from './product-detail.component';
-
-class MockProductService {
-  getProductById() {
-    return of(mockProduct);
-  }
-}
+import { provideHttpClient } from '@angular/common/http';
 
 const mockProduct = {
   name: 'Product name',
@@ -30,8 +28,10 @@ describe('ProductDetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [ProductDetailComponent],
       providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
         {
           provide: ActivatedRoute,
           useValue: {
@@ -52,15 +52,11 @@ describe('ProductDetailComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', fakeAsync(() => {
+  it('should create', () => {
     const spy = spyOn(service, 'getProductById').and.returnValue(
       of(mockProduct)
     );
-
-    // mockService.getProductById.and.returnValue(of(mockProduct));
-    // expect(service.getProductById).toHaveBeenCalled();
     expect(component).toBeTruthy();
-    expect(spy).toHaveBeenCalled();
-    tick();
-  }));
+    expect(spy).toHaveBeenCalledWith('1');
+  });
 });
