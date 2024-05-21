@@ -40,7 +40,11 @@ describe('ProductComponent', () => {
           provide: HttpClient,
           useValue: {
             get: (url: string) => {
-              return of([mockProduct]);
+              if (url === 'api/products') {
+                return of([mockProduct]);
+              }
+
+              return null;
             },
           },
         },
