@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ProductService } from '../product.service';
 import { Product } from '../../../shared/models/product.model';
+import { ProductService } from '../product.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -17,10 +17,11 @@ export class ProductDetailComponent {
     name: '',
     description: '',
   };
-  constructor(
-    private readonly route: ActivatedRoute,
-    private readonly productService: ProductService
-  ) {
+
+  route = inject(ActivatedRoute);
+  productService = inject(ProductService);
+
+  constructor() {
     const productId = this.route.snapshot.params['id'];
     if (productId) {
       this.productService.getProductById(productId).subscribe((product) => {

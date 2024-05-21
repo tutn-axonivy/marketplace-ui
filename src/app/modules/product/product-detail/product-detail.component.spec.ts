@@ -1,20 +1,12 @@
-import {
-  ComponentFixture,
-  TestBed,
-  fakeAsync,
-  tick,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {
-  HttpClientTestingModule,
-  provideHttpClientTesting,
-} from '@angular/common/http/testing';
+import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { Product } from '../../../shared/models/product.model';
-import { ProductService } from '../product.service';
 import { ProductDetailComponent } from './product-detail.component';
-import { provideHttpClient } from '@angular/common/http';
+
+let PRODUCT_ID: string | undefined = '1';
 
 const mockProduct = {
   name: 'Product name',
@@ -23,24 +15,28 @@ const mockProduct = {
 
 describe('ProductDetailComponent', () => {
   let component: ProductDetailComponent;
-  let service: ProductService;
   let fixture: ComponentFixture<ProductDetailComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ProductDetailComponent],
       providers: [
-        provideHttpClient(),
-        provideHttpClientTesting(),
         {
           provide: ActivatedRoute,
           useValue: {
             snapshot: {
-              params: { id: '1' },
+              params: { id: PRODUCT_ID },
             },
           },
         },
-        ProductService,
+        {
+          provide: HttpClient,
+          useValue: {
+            get: () => {
+              return of(mockProduct);
+            },
+          },
+        },
       ],
     }).compileComponents();
   });
@@ -48,14 +44,10 @@ describe('ProductDetailComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ProductDetailComponent);
     component = fixture.componentInstance;
-    service = TestBed.inject(ProductService);
     fixture.detectChanges();
   });
 
   it('should create', () => {
-    const spy = spyOn(service, 'getProductById').and.returnValue(
-      of(mockProduct)
-    );
-    expect(component).toBeTruthy();
+    expect(component.product.name).toEqual(mockProduct.name);
   });
 });

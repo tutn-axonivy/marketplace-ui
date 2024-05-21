@@ -1,7 +1,7 @@
-import { Injectable, inject } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { Product } from '../../shared/models/product.model';
 import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Product } from '../../shared/models/product.model';
 
 @Injectable()
 export class ProductService {

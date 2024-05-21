@@ -1,13 +1,6 @@
-import {
-  provideHttpClientTesting
-} from '@angular/common/http/testing';
-import {
-  ComponentFixture,
-  TestBed,
-  fakeAsync
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 
-import { provideHttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subscription, of } from 'rxjs';
 import { ProductComponent } from './product.component';
@@ -19,7 +12,13 @@ const mockProduct = {
   description: 'product description',
 };
 
-let router = {
+const mockProductService = {
+  getAllProducts: () => {
+    return of([mockProduct]);
+  },
+};
+
+const router = {
   navigate: jasmine.createSpy('navigate'),
 };
 
@@ -37,13 +36,22 @@ describe('ProductComponent', () => {
           useValue: router,
         },
         ProductService,
-        provideHttpClient(),
-        provideHttpClientTesting(),
+        {
+          provide: HttpClient,
+          useValue: {
+            get: (url: string) => {
+              return of([mockProduct]);
+            },
+          },
+        },
       ],
     }).compileComponents();
+  });
+
+  beforeEach(() => {
     fixture = TestBed.createComponent(ProductComponent);
-    service = TestBed.inject(ProductService);
     component = fixture.componentInstance;
+    service = TestBed.inject(ProductService);
     fixture.detectChanges();
   });
 
@@ -54,12 +62,12 @@ describe('ProductComponent', () => {
   it('ngOnInit should set list of products', fakeAsync(() => {
     spyOn(service, 'getAllProducts').and.returnValue(of([mockProduct]));
     component.ngOnInit();
-    expect(component.ngOnInit).toBeTruthy();
+    expect(component.products.length).toEqual(1);
   }));
 
   it('viewProductDetail should navigate', () => {
     component.viewProductDetail('url');
-    expect(component.viewProductDetail).toBeTruthy();
+    expect(router.navigate).toHaveBeenCalledWith(['', 'url']);
   });
 
   it('ngOnDestroy should unsubscribe all sub', () => {
