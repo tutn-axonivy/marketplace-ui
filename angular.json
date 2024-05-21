@@ -104,7 +104,7 @@
             ],
             "scripts": [],
             "karmaConfig": "karma.conf.js",
-            "sourceMap": false,
+            "sourceMap": true,
             "watch": false
           }
         }

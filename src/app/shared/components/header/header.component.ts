@@ -2,6 +2,8 @@ import { DOCUMENT } from '@angular/common';
 import { Component, Inject, Input } from '@angular/core';
 import { Theme } from '../../enums/theme.enum';
 
+const DATA_THEME = 'data-theme';
+
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -21,7 +23,7 @@ export class HeaderComponent {
   }
 
   loadDefaultTheme(localStorage: Storage) {
-    const theme = localStorage.getItem('data-theme') as Theme;
+    const theme = localStorage.getItem(DATA_THEME) as Theme;
     if (theme) {
       this.setTheme(theme);
     } else {
@@ -32,13 +34,12 @@ export class HeaderComponent {
   toggleThemeMode() {
     this.isDarkMode = !this.isDarkMode;
     const theme = this.isDarkMode ? Theme.DARK : Theme.LIGHT;
-    console.log(theme);
     this.setTheme(theme);
-    localStorage.setItem('data-theme', theme);
+    localStorage.setItem(DATA_THEME, theme);
   }
 
   setTheme(theme: Theme) {
-    document.body.setAttribute('data-theme', theme);
+    document.body.setAttribute(DATA_THEME, theme);
     if (theme === Theme.DARK) {
       this.isDarkMode = true;
     } else {

@@ -17,10 +17,11 @@ import { Router } from '@angular/router';
 export class ProductComponent implements OnInit, OnDestroy {
   products: Product[] = [];
 
-  subscription: Subscription[] = [];
   productService = inject(ProductService);
+  router = inject(Router);
+  subscription: Subscription[] = [];
 
-  constructor(private readonly router: Router) {}
+  constructor() {}
 
   ngOnInit(): void {
     const sub = this.productService.getAllProducts().subscribe((products) => {

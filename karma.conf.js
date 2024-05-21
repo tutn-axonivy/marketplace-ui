@@ -44,7 +44,14 @@ module.exports = function (config) {
       outputFile: 'karma-junit.xml',
       useBrowserName: false
     },
-    browsers: ['ChromeHeadless'],
-    restartOnFileChange: true
+    browsers: ['Chrome'],
+    restartOnFileChange: true,
+    customLaunchers: {
+      Chrome_with_debugging: {
+        base: 'Chrome',
+        flags: ['--remote-debugging-port=9222'],
+        debug: true
+      }
+    }
   });
 };
