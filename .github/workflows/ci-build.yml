@@ -17,13 +17,17 @@ jobs:
       - uses: actions/setup-node@v4
       - uses: browser-actions/setup-chrome@v1
 
-      - name: install dependencies
+      - name: Install dependencies
         run: |
           npm install
 
-      - name: run test
+      - name: Run test
         run: |
           npm run test
+
+      - name: Build
+        run: |
+          npm run build
 
       - name: Clean up
         run: |

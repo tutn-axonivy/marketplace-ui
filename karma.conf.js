@@ -13,6 +13,7 @@ module.exports = function (config) {
       require('karma-jasmine-html-reporter'),
       require('karma-coverage'),
       require('@angular-devkit/build-angular/plugins/karma'),
+      require('karma-junit-reporter')
     ],
     client: {
       jasmine: {
@@ -20,6 +21,9 @@ module.exports = function (config) {
         // the possible options are listed at https://jasmine.github.io/api/edge/Configuration.html
         // for example, you can disable the random execution with `random: false`
         // or set a specific seed with `seed: 4321`
+        stopSpecOnExpectationFailure: true,
+        failFast: true,
+        timeoutInterval: 60000
       },
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
@@ -37,8 +41,20 @@ module.exports = function (config) {
     angularCli: {
       environment: 'dev'
     },
-    reporters: ['progress', 'kjhtml'],
+    reporters: ['progress', 'junit'],
+    junitReporter: {
+      outputDir: 'reports',
+      outputFile: 'karma-junit.xml',
+      useBrowserName: false
+    },
     browsers: ['ChromeHeadless'],
-    restartOnFileChange: true
+    restartOnFileChange: true,
+    customLaunchers: {
+      Chrome_with_debugging: {
+        base: 'Chrome',
+        flags: ['--remote-debugging-port=9222'],
+        debug: true
+      }
+    },
   });
 };
