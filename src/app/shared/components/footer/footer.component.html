@@ -1,1 +1,14 @@
-<div class="footer"></div>
+<div class="footer">
+  <div class="container">
+    <div>
+      <img
+        class="logo__image"
+        [src]="
+          themeService.isDarkMode()
+            ? '/assets/misc/axonivy-logo.svg'
+            : '/assets/misc/axonivy-logo-black.svg'
+        "
+        alt="Axon Ivy" />
+    </div>
+  </div>
+</div>

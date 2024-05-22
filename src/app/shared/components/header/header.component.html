@@ -4,12 +4,11 @@
       <img
         class="logo__image"
         [src]="
-          isDarkMode
+          themeService.isDarkMode()
             ? '/assets/misc/axonivy-logo.svg'
             : '/assets/misc/axonivy-logo-black.svg'
         "
-        alt="Axon Ivy"
-      />
+        alt="Axon Ivy" />
     </a>
   </div>
 
@@ -20,8 +19,7 @@
           <li
             class="nav-item"
             (click)="onNavClick(item.link)"
-            [ngClass]="{ active: item.link === selectedNav }"
-          >
+            [ngClass]="{ active: item.link === selectedNav }">
             <a class="nav-link" aria-current="page">{{ item.label }}</a>
             <div class="active-line"></div>
           </li>
@@ -32,8 +30,8 @@
 
   <div class="d-flex align-items-center header__menu--right">
     <div class="m-2 header__theme-button">
-      <div (click)="toggleThemeMode()">
-        @if (isDarkMode) {
+      <div (click)="themeService.changeTheme()">
+        @if (themeService.isDarkMode()) {
           <i class="bi bi-moon"></i>
         } @else {
           <i class="bi bi-sun"></i>
