@@ -1,17 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
-import { Product } from '../../../shared/models/product.model';
+import {
+  MOCK_PRODUCT,
+  MockProductService,
+} from '../../../shared/utils/common-test.util';
+import { ProductService } from '../product.service';
 import { ProductDetailComponent } from './product-detail.component';
 
 let PRODUCT_ID: string | undefined = '1';
-
-const mockProduct = {
-  name: 'Product name',
-  description: 'Product description',
-} as Product;
 
 describe('ProductDetailComponent', () => {
   let component: ProductDetailComponent;
@@ -29,16 +26,17 @@ describe('ProductDetailComponent', () => {
             },
           },
         },
-        {
-          provide: HttpClient,
-          useValue: {
-            get: () => {
-              return of(mockProduct);
-            },
-          },
-        },
       ],
-    }).compileComponents();
+    })
+      .overrideComponent(ProductDetailComponent, {
+        remove: { providers: [ProductService] },
+        add: {
+          providers: [
+            { provide: ProductService, useClass: MockProductService },
+          ],
+        },
+      })
+      .compileComponents();
   });
 
   beforeEach(() => {
@@ -48,6 +46,6 @@ describe('ProductDetailComponent', () => {
   });
 
   it('should create', () => {
-    expect(component.product.name).toEqual(mockProduct.name);
+    expect(component.product.name).toEqual(MOCK_PRODUCT.name);
   });
 });

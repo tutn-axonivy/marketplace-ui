@@ -1,22 +1,12 @@
-import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Subscription, of } from 'rxjs';
+import { Subscription } from 'rxjs';
+import {
+  MockProductService
+} from '../../shared/utils/common-test.util';
 import { ProductComponent } from './product.component';
 import { ProductService } from './product.service';
-
-const mockProduct = {
-  id: 'adobe-acrobat-connector',
-  name: 'product name',
-  description: 'product description',
-};
-
-const mockProductService = {
-  getAllProducts: () => {
-    return of([mockProduct]);
-  },
-};
 
 const router = {
   navigate: jasmine.createSpy('navigate'),
@@ -24,7 +14,6 @@ const router = {
 
 describe('ProductComponent', () => {
   let component: ProductComponent;
-  let service: ProductService;
   let fixture: ComponentFixture<ProductComponent>;
 
   beforeEach(async () => {
@@ -36,26 +25,19 @@ describe('ProductComponent', () => {
           useValue: router,
         },
         ProductService,
-        {
-          provide: HttpClient,
-          useValue: {
-            get: (url: string) => {
-              if (url === 'api/products') {
-                return of([mockProduct]);
-              }
-
-              return null;
-            },
-          },
-        },
       ],
-    }).compileComponents();
-  });
-
-  beforeEach(() => {
+    })
+      .overrideComponent(ProductComponent, {
+        remove: { providers: [ProductService] },
+        add: {
+          providers: [
+            { provide: ProductService, useClass: MockProductService },
+          ],
+        },
+      })
+      .compileComponents();
     fixture = TestBed.createComponent(ProductComponent);
     component = fixture.componentInstance;
-    service = TestBed.inject(ProductService);
     fixture.detectChanges();
   });
 
@@ -63,11 +45,10 @@ describe('ProductComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('ngOnInit should set list of products', fakeAsync(() => {
-    spyOn(service, 'getAllProducts').and.returnValue(of([mockProduct]));
+  it('ngOnInit should set list of products', () => {
     component.ngOnInit();
     expect(component.products.length).toEqual(1);
-  }));
+  });
 
   it('viewProductDetail should navigate', () => {
     component.viewProductDetail('url');

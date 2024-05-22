@@ -15,8 +15,6 @@ const DATA_THEME = 'data-bs-theme';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  @Input() isDarkMode: boolean = false;
-
   selectedNav: string = '/';
 
   navItems: NavItem[] = [
@@ -47,8 +45,4 @@ export class HeaderComponent {
   ];
 
   themeService = inject(ThemeService);
-
-  onNavClick(navLink: string) {
-    this.selectedNav = navLink;
-  }
 }

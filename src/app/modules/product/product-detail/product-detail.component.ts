@@ -12,11 +12,7 @@ import { ProductService } from '../product.service';
   styleUrl: './product-detail.component.scss',
 })
 export class ProductDetailComponent {
-  product: Product = {
-    id: '',
-    name: '',
-    description: '',
-  };
+  product!: Product;
 
   route = inject(ActivatedRoute);
   productService = inject(ProductService);

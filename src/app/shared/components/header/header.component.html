@@ -18,8 +18,7 @@
         @for (item of navItems; track $index) {
           <li
             class="nav-item"
-            (click)="onNavClick(item.link)"
-            [ngClass]="{ active: item.link === selectedNav }">
+            [ngClass]="{ active: item.link === '/' }">
             <a class="nav-link" aria-current="page">{{ item.label }}</a>
             <div class="active-line"></div>
           </li>
