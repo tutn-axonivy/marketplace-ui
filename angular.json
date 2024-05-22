@@ -25,7 +25,6 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
@@ -99,7 +98,6 @@
             ],
             "tsConfig": "tsconfig.spec.json",
             "assets": [
-              "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
@@ -107,7 +105,7 @@
             ],
             "scripts": [],
             "karmaConfig": "karma.conf.js",
-            "sourceMap": false,
+            "sourceMap": true,
             "watch": false
           }
         }
