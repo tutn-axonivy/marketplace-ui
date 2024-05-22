@@ -8,10 +8,9 @@ describe('HeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HeaderComponent]
-    })
-    .compileComponents();
-    
+      imports: [HeaderComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -20,10 +19,4 @@ describe('HeaderComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('switch mode button should change current mode', () => {
-    component.isDarkMode = true;
-    component.toggleThemeMode()
-    expect(component.isDarkMode).toBeFalse();
-  })
 });

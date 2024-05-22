@@ -2,7 +2,7 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import { Component, Inject, Input, OnDestroy, inject } from '@angular/core';
 import { Theme } from '../../enums/theme.enum';
 import { NavItem } from '../../models/nav-item.model';
-import { ThemeService } from '../../../core/services/theme.service';
+import { ThemeService } from '../../../core/services/theme/theme.service';
 import { Subscription } from 'rxjs';
 
 const DATA_THEME = 'data-bs-theme';

@@ -1,17 +1,16 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable, WritableSignal, signal } from '@angular/core';
-import { Theme } from '../../shared/enums/theme.enum';
+import { Theme } from '../../../shared/enums/theme.enum';
 
 const DATA_THEME = 'data-bs-theme';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
   isDarkMode: WritableSignal<boolean> = signal(false);
-  theme: WritableSignal<Theme> = signal(Theme.LIGHT);
+  theme: WritableSignal<Theme> = signal(Theme.DARK);
 
   constructor(@Inject(DOCUMENT) private document: Document) {
     const localStorage = this.document.defaultView?.localStorage;
-
     if (localStorage) {
       this.loadDefaultTheme(localStorage);
     }
